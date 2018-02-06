@@ -42,7 +42,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Engine.cs" />
+    <Compile Include="Shape.cs" />
     <Compile Include="Vector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
