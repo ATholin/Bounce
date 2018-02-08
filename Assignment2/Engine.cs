@@ -9,19 +9,18 @@ namespace Assignment2
 	{
 		private MainForm form;
 		private Timer timer;
+		ShapeDelegate ShapeDelegate;
 
 		private ISet<Ball> balls = new HashSet<Ball>();
 
 		private Random random = new Random();
 
-		Shape shape = new Shape(400, 300, 100, 200);
-
 		public Engine()
 		{
 			form = new MainForm();
 			timer = new Timer();
-
-			form.MouseClick += MouseClick;
+			ShapeDelegate = new ShapeDelegate(form);
+			form.MouseClick += ShapeDelegate.MClick;
 
 			AddBall();
 		}
@@ -63,40 +62,6 @@ namespace Assignment2
 			{
 				ball.Draw(args.Graphics);
 			}
-			shape.Draw(args.Graphics);
-		}
-
-		private void MouseClick(object sender, MouseEventArgs e)
-		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
-			{
-				var context = new ContextMenuStrip();
-				context.Items.Add("Add SpeedBox", null, new EventHandler(speedBox_add));
-				context.Items.Add("Add SlowBox", null, new EventHandler(slowBox_add));
-				context.Items.Add("Add Horizontal Line", null, new EventHandler(horLine_add));
-				context.Items.Add("Add Vertical Line", null, new EventHandler(verLine_add));
-				context.Show(Cursor.Position);
-			}
-		}
-
-		private void speedBox_add(object sender, EventArgs e)
-		{
-			MessageBox.Show("no");
-		}
-
-		private void slowBox_add(object sender, EventArgs e)
-		{
-			MessageBox.Show("no");
-		}
-
-		private void horLine_add(object sender, EventArgs e)
-		{
-			MessageBox.Show("no");
-		}
-
-		private void verLine_add(object sender, EventArgs e)
-		{
-			MessageBox.Show("no");
 		}
 	}
 }
