@@ -8,56 +8,69 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	class ShapeDelegate : Form
+	class ShapeDelegate
 	{
-		private MainForm form;
 
-		public ShapeDelegate(MainForm form)
+		Engine engine;
+
+		Point p1 = new Point();
+		Point p2 = new Point();
+
+		public ShapeDelegate(Engine engine)
 		{
-			this.form = form;
+			this.engine = engine;
 		}
 
-		public void MClick(object sender, MouseEventArgs e)
+		public void Form_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Left)
 			{
+				p1.X = e.X;
+				p1.Y = e.Y;
+			}
+		}
+
+		public void Form_MouseUp(object sender, MouseEventArgs e)
+		{
+			if (e.Button == System.Windows.Forms.MouseButtons.Left)
+			{
+				p2.X = e.X;
+				p2.Y = e.Y;
 				var context = new ContextMenuStrip();
 				context.Items.Add("Add SpeedBox", null, new EventHandler(SpeedBox));
 				context.Items.Add("Add SlowBox", null, new EventHandler(SlowBox));
 				context.Items.Add("Add Horizontal Line", null, new EventHandler(HorizontalLine));
 				context.Items.Add("Add Vertical Line", null, new EventHandler(VerticalLine));
 				context.Show(Cursor.Position);
+
+				
 			}
-		}
-
-		public void CreateShape()
-		{
-			var label = new Label();
-			label.AutoSize = true;
-			label.Text = "Choose two points.";
-
-			form.Controls.Add(label);
 		}
 
 		private void SpeedBox(object sender, EventArgs e)
 		{
-			CreateShape();
-			this.UseWaitCursor = true;
+			var shape = new Shape(Shape.Type.speed, p1, p2);
+			engine.AddShape(shape);
 		}
 
 		private void SlowBox(object sender, EventArgs e)
 		{
-			CreateShape();
+			var shape = new Shape(Shape.Type.slow, p1, p2);
+			engine.AddShape(shape);
 		}
 
 		private void HorizontalLine(object sender, EventArgs e)
 		{
-			CreateShape();
+			p2.Y = p1.Y + 1;
+			var shape = new Shape(Shape.Type.horizontal, p1, p2);
+			engine.AddShape(shape);
 		}
 
 		private void VerticalLine(object sender, EventArgs e)
 		{
-			CreateShape();
+			p2.X = p1.X + 1;
+			var shape = new Shape(Shape.Type.vertical, p1, p2);
+			engine.AddShape(shape);
 		}
 	}
 }

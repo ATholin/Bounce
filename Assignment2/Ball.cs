@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Drawing;
 
+
 namespace Assignment2
 {
 	public class Ball : IDrawable
 	{
-		private Pen pen = new Pen(Color.Black);
+		private Pen pen = new Pen(Color.White);
 		private int radius;
-        Point position;
+        public Point position;
 
 		public Ball(Point position, int radius)
 		{
@@ -27,6 +28,7 @@ namespace Assignment2
 
 		public void Move()
 		{
+			// check intersection with all shapes
 			position.X = position.X + speed.X;
 			position.Y = position.Y + speed.Y;
 		}
