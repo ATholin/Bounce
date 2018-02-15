@@ -67,7 +67,16 @@ namespace Assignment2
 					switch (shape.ShapeType)
 					{
 						case Shape.Type.speed:
-							ball.Speed = new Vector(ball.Speed.X, ball.Speed.Y);
+							/*
+							var speedX = (double)ball.Speed.X;
+							var speedY = (double)ball.Speed.Y;
+							Math.Round(speedX * 2);
+							Math.Round(speedY * 2);
+
+							ball.Speed.X = (int)speedX;
+							ball.Speed.Y = (int)speedY;
+							*/
+							ball.Speed = new Vector(ball.Speed.X + ball.Speed.X / 5, ball.Speed.Y + ball.Speed.Y / 5);
 							break;
 						case Shape.Type.slow:
 							//move and decrease speed

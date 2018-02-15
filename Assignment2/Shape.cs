@@ -53,15 +53,5 @@ namespace Assignment2
 			}
 			g.DrawRectangle(pen, Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X)- Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
 		}
-
-
-		private Vector speed;
-
-		public Vector Speed
-		{
-			get { return speed; }
-			set { speed = value; }
-		}
-
 	}
 }
