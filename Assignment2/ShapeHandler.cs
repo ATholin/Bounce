@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	class ShapeDelegate
+	class ShapeHandler
 	{
 
 		Engine engine;
@@ -16,7 +16,7 @@ namespace Assignment2
 		Point p1 = new Point();
 		Point p2 = new Point();
 
-		public ShapeDelegate(Engine engine)
+		public ShapeHandler(Engine engine)
 		{
 			this.engine = engine;
 		}

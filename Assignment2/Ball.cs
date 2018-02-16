@@ -1,13 +1,12 @@
 ﻿using System.Drawing;
 
-
 namespace Assignment2
 {
 	public class Ball : IDrawable
 	{
 		private Pen pen = new Pen(Color.White);
 		private int radius;
-        public Point position;
+        public PointF position;
 
 		public Ball(Point position, int radius)
 		{
@@ -39,6 +38,5 @@ namespace Assignment2
 			get { return speed; }
 			set { speed = value; }
 		}
-
 	}
 }

@@ -3,22 +3,22 @@ namespace Assignment2
 {
 	public class Vector
 	{
-		private int x;
-		private int y;
+		private float x;
+		private float y;
 
-		public Vector(int x, int y)
+		public Vector(float x, float y)
 		{
 			this.x = x;
 			this.y = y;
 		}
 
-		public int X
+		public float X
 		{
 			get { return x; }
 			set { x = value; }
 		}
 
-		public int Y
+		public float Y
 		{
 			get { return y; }
 			set { y = value; }

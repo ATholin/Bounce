@@ -45,9 +45,7 @@
     </Compile>
     <Compile Include="Engine.cs" />
     <Compile Include="Shape.cs" />
-    <Compile Include="ShapeDelegate.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ShapeHandler.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>
