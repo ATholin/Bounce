@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace Assignment2
 {
@@ -29,6 +30,21 @@ namespace Assignment2
 			// check intersection with all shapes
 			position.X = position.X + speed.X;
 			position.Y = position.Y + speed.Y;
+		}
+
+		public Shape CheckIntersect(ISet<Shape> shapes)
+		{
+			RectangleF ballRectangle = new RectangleF(position.X - 10, position.Y - 10, 20, 20);
+
+			foreach (var shape in shapes)
+			{
+				var rekt = shape.MakeREKT();
+				if (ballRectangle.IntersectsWith(rekt))
+				{
+					return shape;
+				}
+			}
+			return null;
 		}
 
 		private Vector speed;
