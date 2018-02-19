@@ -66,11 +66,11 @@ namespace Assignment2
 
 		private void TimerEventHandler(Object obj, EventArgs args)
 		{
-			if (random.Next(100) < 25) AddBall();
+			if (random.Next(100) < 100) AddBall();
 
 			foreach (var ball in balls)
 			{
-				var shape = CheckIntersect(ball);
+				var shape = ball.CheckIntersect(shapes);
 				if (shape != null)
 				{
 					switch (shape.ShapeType)
@@ -109,22 +109,6 @@ namespace Assignment2
 			form.Refresh();
 
 			ballsLabel.Text = "Balls: " + balls.Count;
-		}
-
-		private Shape CheckIntersect(Ball ball)
-		{
-			PointF rect = ball.position;
-			RectangleF ballRectangle = new RectangleF(rect.X - 10, rect.Y - 10, 20, 20);
-
-			foreach(var shape in shapes)
-			{
-				var rekt = shape.MakeREKT();
-				if (ballRectangle.IntersectsWith(rekt))
-				{
-					return shape;
-				}
-			}
-			return null;
 		}
 
 		private void Draw(Object obj, PaintEventArgs args)
