@@ -66,32 +66,38 @@ namespace Assignment2
 
 		private void TimerEventHandler(Object obj, EventArgs args)
 		{
+			Shape shape = null;
+
 			if (random.Next(100) < 100) AddBall();
 
 			foreach (var ball in balls)
 			{
-				var shape = ball.CheckIntersect(shapes);
-				if (shape != null)
+				foreach(var s in shapes)
 				{
-					switch (shape.ShapeType)
+					shape = ball.CheckIntersect(s);
+					if (shape != null)
 					{
-						case Shape.Type.speed:
-							ball.Speed.X *= (float)1.03;
-							ball.Speed.Y *= (float)1.03;
-							break;
-						case Shape.Type.slow:
-							ball.Speed.X *= (float)0.98;
-							ball.Speed.Y *= (float)0.98;
-							break;
-						case Shape.Type.vertical:
-							ball.Speed.X *= -1;
-							
-							break;
-						case Shape.Type.horizontal:
-							ball.Speed.Y *= -1;
-							break;
+						switch (shape.ShapeType)
+						{
+							case Shape.Type.speed:
+								ball.Speed.X *= (float)1.03;
+								ball.Speed.Y *= (float)1.03;
+								break;
+							case Shape.Type.slow:
+								ball.Speed.X *= (float)0.98;
+								ball.Speed.Y *= (float)0.98;
+								break;
+							case Shape.Type.vertical:
+								ball.Speed.X *= -1;
+
+								break;
+							case Shape.Type.horizontal:
+								ball.Speed.Y *= -1;
+								break;
+						}
 					}
 				}
+
 				ball.Move();
 
 				var x = ball.position.X;

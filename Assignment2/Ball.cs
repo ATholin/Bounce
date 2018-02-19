@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System;
 
 namespace Assignment2
 {
@@ -32,17 +33,31 @@ namespace Assignment2
 			position.Y = position.Y + speed.Y;
 		}
 
-		public Shape CheckIntersect(ISet<Shape> shapes)
+		public Shape CheckIntersect(Shape shape)
 		{
-			RectangleF ballRectangle = new RectangleF(position.X - 10, position.Y - 10, 20, 20);
+			var point1X = Math.Min(shape.GetPointOne().X, shape.GetPointTwo().X);
+			var point1Y = Math.Min(shape.GetPointOne().Y, shape.GetPointTwo().Y);
 
-			foreach (var shape in shapes)
+			var point2X = Math.Max(shape.GetPointOne().X, shape.GetPointTwo().X);
+			var point2Y = Math.Max(shape.GetPointOne().Y, shape.GetPointTwo().Y);
+
+			var width = point2X - point1X;
+			var height = point2Y - point1Y;
+
+			var circleDistanceX = Math.Abs(position.X - point1X - width / 2);
+			var circleDistanceY = Math.Abs(position.Y - point1Y - height / 2);
+
+			if (circleDistanceX > (width / 2 + radius)) { return null; }
+			if (circleDistanceY > (height / 2 + radius)) { return null; }
+
+			if (circleDistanceX <= (width / 2)) { return shape; }
+			if (circleDistanceY <= (height / 2)) { return shape; }
+			var cornerDistance_sq = Math.Pow((circleDistanceX - width / 2), 2) +
+								 Math.Pow((circleDistanceY - height / 2), 2);
+
+			if (cornerDistance_sq <= (Math.Pow((radius), 2)))
 			{
-				var rekt = shape.MakeREKT();
-				if (ballRectangle.IntersectsWith(rekt))
-				{
-					return shape;
-				}
+				return shape;
 			}
 			return null;
 		}

@@ -10,13 +10,13 @@ namespace Assignment2
 	public class Shape : IDrawable
 	{
 		private Pen pen;
-		private Point point1;
-		private Point point2;
+		private PointF point1;
+		private PointF point2;
 		public Type ShapeType;
 
-		public Rectangle MakeREKT()
+		public RectangleF MakeREKT()
 		{
-			return new Rectangle(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X) - Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
+			return new RectangleF(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X) - Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
 		}
 
 		public enum Type
@@ -27,11 +27,21 @@ namespace Assignment2
 			horizontal
 		}
 
-		public Shape(Type type, Point p1, Point p2)
+		public Shape(Type type, PointF p1, PointF p2)
 		{
 			this.ShapeType = type;
 			point1 = p1;
 			point2 = p2;
+		}
+
+		public PointF GetPointOne()
+		{
+			return point1;
+		}
+
+		public PointF GetPointTwo()
+		{
+			return point2;
 		}
 
 		public void Draw(Graphics g)
