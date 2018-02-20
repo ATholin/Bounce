@@ -9,7 +9,7 @@ namespace Assignment2
 {
 	class VL : Box, ICollision
 	{
-		public VL(PointF p1, PointF p2) : base(p1, new PointF(p1.X + 1, p2.X))
+		public VL(PointF p1, PointF p2) : base(p1, new PointF(p1.X + 1, p2.Y))
 		{
 			pen = new Pen(Color.Yellow);
 		}
