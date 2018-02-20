@@ -9,9 +9,7 @@ namespace Assignment2
 {
 	public class Shape : IDrawable
 	{
-		private Pen pen;
-		private PointF point1;
-		private PointF point2;
+		
 		public Type ShapeType;
 
 		public RectangleF MakeREKT()
@@ -27,12 +25,7 @@ namespace Assignment2
 			horizontal
 		}
 
-		public Shape(Type type, PointF p1, PointF p2)
-		{
-			this.ShapeType = type;
-			point1 = p1;
-			point2 = p2;
-		}
+		
 
 		public PointF GetPointOne()
 		{
@@ -61,7 +54,6 @@ namespace Assignment2
 					pen = new Pen(Color.Green);
 					break;
 			}
-			g.DrawRectangle(pen, Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X)- Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
 		}
 	}
 }

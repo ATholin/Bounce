@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	class ShapeHandler
+	class BoxHandler
 	{
 
 		Engine engine;
@@ -16,7 +16,7 @@ namespace Assignment2
 		Point p1 = new Point();
 		Point p2 = new Point();
 
-		public ShapeHandler(Engine engine)
+		public BoxHandler(Engine engine)
 		{
 			this.engine = engine;
 		}
@@ -49,28 +49,26 @@ namespace Assignment2
 
 		private void SpeedBox(object sender, EventArgs e)
 		{
-			var shape = new Shape(Shape.Type.speed, p1, p2);
-			engine.AddShape(shape);
+			var box = new SUB(p1, p2);
+			engine.AddBox(box);
 		}
 
 		private void SlowBox(object sender, EventArgs e)
 		{
-			var shape = new Shape(Shape.Type.slow, p1, p2);
-			engine.AddShape(shape);
+			var box = new SDB(p1, p2);
+			engine.AddBox(box);
 		}
 
 		private void HorizontalLine(object sender, EventArgs e)
 		{
-			p2.Y = p1.Y + 1;
-			var shape = new Shape(Shape.Type.horizontal, p1, p2);
-			engine.AddShape(shape);
+			var box = new HL(p1, p2);
+			engine.AddBox(box);
 		}
 
 		private void VerticalLine(object sender, EventArgs e)
 		{
-			p2.X = p1.X + 1;
-			var shape = new Shape(Shape.Type.vertical, p1, p2);
-			engine.AddShape(shape);
+			var box = new VL(p1, p2);
+			engine.AddBox(box);
 		}
 	}
 }
