@@ -7,44 +7,61 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	class Shape : IDrawable
+	public class Shape : IDrawable
 	{
-		private Pen pen = new Pen(Color.Black);
-		private int width;
-		private int heigth;
-		Point position;
+		private Pen pen;
+		private PointF point1;
+		private PointF point2;
+		public Type ShapeType;
 
-		public Shape(Point position, int width, int heigth)
+		public RectangleF MakeREKT()
 		{
-			this.position = position;
-			this.width = width;
-			this.heigth = heigth;
+			return new RectangleF(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X) - Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
 		}
 
-		public Shape(int x, int y, int width, int height) : this(new Point(x, y), width, height)
+		public enum Type
 		{
-			this.width = width;
-			this.heigth = heigth;
+			speed,
+			slow,
+			vertical,
+			horizontal
+		}
+
+		public Shape(Type type, PointF p1, PointF p2)
+		{
+			this.ShapeType = type;
+			point1 = p1;
+			point2 = p2;
+		}
+
+		public PointF GetPointOne()
+		{
+			return point1;
+		}
+
+		public PointF GetPointTwo()
+		{
+			return point2;
 		}
 
 		public void Draw(Graphics g)
 		{
-			g.DrawRectangle(pen, position.X, position.Y, width, heigth);
+			switch (ShapeType)
+			{
+				case Type.speed:
+					pen = new Pen(Color.Red);
+					break;
+				case Type.slow:
+					pen = new Pen(Color.Blue);
+					break;
+				case Type.vertical:
+					pen = new Pen(Color.Yellow);
+					break;
+				case Type.horizontal:
+					pen = new Pen(Color.Green);
+					break;
+			}
+			g.DrawRectangle(pen, Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y), Math.Max(point1.X, point2.X)- Math.Min(point1.X, point2.X), Math.Max(point1.Y, point2.Y) - Math.Min(point1.Y, point2.Y));
 		}
-
-		public void Move()
-		{
-			position.X = position.X + speed.X;
-			position.Y = position.Y + speed.Y;
-		}
-
-		private Vector speed;
-
-		public Vector Speed
-		{
-			get { return speed; }
-			set { speed = value; }
-		}
-
 	}
 }
