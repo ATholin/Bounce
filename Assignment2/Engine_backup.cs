@@ -5,28 +5,28 @@ using System.Windows.Forms;
 
 namespace Assignment2
 {
-	public class Engine
+	public class Engine_backup
 	{
-		private MainForm form;
+		public MainForm form;
 		private Timer timer;
+		BoxHandler ShapeDelegate;
 
 		private ISet<Ball> balls = new HashSet<Ball>();
 		private ISet<Ball> BallsToRemove = new HashSet<Ball>();
 
-		private ISet<ICollision> collidables = new HashSet<ICollision>();
+		private ISet<Shape> shapes = new HashSet<Shape>();
 
 		private Random random = new Random();
 
 		Label ballsLabel = new Label();
 
-		public Engine()
+		public Engine_backup()
 		{
 			form = new MainForm();
 			timer = new Timer();
-
-			var boxHandler = new BoxHandler(this);
-			form.MouseDown += boxHandler.Form_MouseDown;
-			form.MouseUp += boxHandler.Form_MouseUp;
+			ShapeDelegate = new BoxHandler(this);
+			form.MouseDown += ShapeDelegate.Form_MouseDown;
+			form.MouseUp += ShapeDelegate.Form_MouseUp;
 			form.Controls.Add(ballsLabel);
 
 			ballsLabel.ForeColor = Color.White;
@@ -41,7 +41,7 @@ namespace Assignment2
 			form.BackColor = Color.Black;
 			form.Paint += new PaintEventHandler(Draw);
 			timer.Tick += new EventHandler(TimerEventHandler);
-			timer.Interval = 1000/25;
+			timer.Interval = 1000 / 25;
 			timer.Start();
 
 			Application.Run(form);
@@ -51,32 +51,58 @@ namespace Assignment2
 		private void AddBall()
 		{
 			var ball = new Ball(400, 300, 10);
-			ball.Speed = new Vector(random.Next(10) - 5, random.Next(10) - 5);
+			do
+			{
+				ball.Speed = new Vector(random.Next(10) - 5, random.Next(10) - 5);
+			} while(ball.Speed.X == 0 || ball.Speed.Y == 0);
 			balls.Add(ball);
 		}
 
-		public void AddBox(ICollision c)
+		public void AddShape(Shape shape)
 		{
-			collidables.Add(c);
+			shapes.Add(shape);
 		}
 
 		private void TimerEventHandler(Object obj, EventArgs args)
 		{
+			Shape shape = null;
+
 			if (random.Next(100) < 25) AddBall();
 
 			foreach (var ball in balls)
 			{
-				foreach(var c in collidables)
+				foreach(var s in shapes)
 				{
-					if (c.Intersects(ball))
+					shape = ball.CheckIntersect(s);
+					if (shape != null)
 					{
-						c.OnCollision(ball);
+						switch (shape.ShapeType)
+						{
+							case Shape.Type.speed:
+								ball.Speed.X *= (float)1.03;
+								ball.Speed.Y *= (float)1.03;
+								break;
+							case Shape.Type.slow:
+								ball.Speed.X *= (float)0.98;
+								ball.Speed.Y *= (float)0.98;
+								break;
+							case Shape.Type.vertical:
+								ball.Speed.X *= -1;
+
+								break;
+							case Shape.Type.horizontal:
+								ball.Speed.Y *= -1;
+								break;
+						}
 					}
 				}
 
 				ball.Move();
 
-				if (ball.Position.X > form.Width || ball.Position.X < -20 || ball.Position.Y > form.Height || ball.Position.Y < -20)
+				var x = ball.position.X;
+				var y = ball.position.Y;
+
+				if (x > form.Width || x < -20 || y > form.Height || y < -20)
 				{
 					BallsToRemove.Add(ball);
 				}
@@ -86,6 +112,8 @@ namespace Assignment2
 			BallsToRemove.Clear();
 
 			form.Refresh();
+
+			ballsLabel.Text = "Balls: " + balls.Count;
 		}
 
 		private void Draw(Object obj, PaintEventArgs args)
@@ -94,16 +122,15 @@ namespace Assignment2
 			{
 				ball.Draw(args.Graphics);
 			}
-
-			foreach(var c in collidables)
+			foreach (var shape in shapes)
 			{
-				c.
+				shape.Draw(args.Graphics);
 			}
 		}
 
 		private void RemoveBalls()
 		{
-			foreach (var ball in BallsToRemove)
+			foreach(var ball in BallsToRemove)
 			{
 				balls.Remove(ball);
 			}

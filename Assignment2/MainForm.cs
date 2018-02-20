@@ -6,9 +6,10 @@ namespace Assignment2
 {
 	public class MainForm : Form
 	{
-
+		
 		public MainForm() : base()
 		{
+			this.DoubleBuffered = true;
 			Text = "Assignment 2";
 			Width = 800;
 			Height = 600;
