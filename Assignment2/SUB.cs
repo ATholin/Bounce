@@ -14,7 +14,7 @@ namespace Assignment2
 			pen = new Pen(Color.Red);
 		}
 
-		public void OnCollision(Ball b)
+		public override void OnCollision(Ball b)
 		{
 			b.Speed.X *= (float)1.03;
 			b.Speed.Y *= (float)1.03;

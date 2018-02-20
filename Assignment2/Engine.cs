@@ -13,7 +13,7 @@ namespace Assignment2
 		private ISet<Ball> balls = new HashSet<Ball>();
 		private ISet<Ball> BallsToRemove = new HashSet<Ball>();
 
-		private ISet<ICollision> collidables = new HashSet<ICollision>();
+		private ISet<Box> collidables = new HashSet<Box>();
 
 		private Random random = new Random();
 
@@ -55,7 +55,7 @@ namespace Assignment2
 			balls.Add(ball);
 		}
 
-		public void AddBox(ICollision c)
+		public void AddBox(Box c)
 		{
 			collidables.Add(c);
 		}
@@ -97,7 +97,7 @@ namespace Assignment2
 
 			foreach(var c in collidables)
 			{
-				c.
+				c.Draw(args.Graphics);
 			}
 		}
 
