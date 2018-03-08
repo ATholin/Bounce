@@ -10,6 +10,7 @@ namespace Assignment2
 		public MainForm() : base()
 		{
 			this.DoubleBuffered = true;
+			Cursor = Cursors.Cross;
 			Text = "Assignment 2";
 			Width = 800;
 			Height = 600;

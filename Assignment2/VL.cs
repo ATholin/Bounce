@@ -9,13 +9,12 @@ namespace Assignment2
 {
 	class VL : Box, ICollision
 	{
-		public VL(PointF p1, PointF p2) : base(p1, p2)
+		public VL(PointF p1, PointF p2) : base(p1, new PointF(p1.X + 1, p2.Y))
 		{
 			pen = new Pen(Color.Yellow);
-			p2.X = p1.X + 1;
 		}
 
-		public void OnCollision(Ball b)
+		public override void OnCollision(Ball b)
 		{
 			b.Speed = new Vector(b.Speed.X *= -1, b.Speed.Y);
 		}

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Assignment2
 {
-	abstract class Box: IDrawable
+	public abstract class Box: IDrawable, ICollision
 	{
 		public Pen pen;
 		private PointF point1;
@@ -47,5 +47,6 @@ namespace Assignment2
 			return (cornerDistance_sq <= (Math.Pow((b.Radius), 2)));
 		}
 
+		public abstract void OnCollision(Ball ball);
 	}
 }
